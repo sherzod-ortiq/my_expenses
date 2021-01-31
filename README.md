@@ -1,2 +1,2 @@
 # My Expenses
-## Flutter app for counting weekly expences and displaying bar chart
+## Flutter app for counting weekly expenses and displaying bar chart
