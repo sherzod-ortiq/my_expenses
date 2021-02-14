@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter/services.dart';
 
 import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitUp,
+  // ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -46,18 +54,49 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     Transaction(
-      id: 't1',
-      title: 'Weekly Groceries',
-      amount: 50.03,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
+      id: 't2',
       title: 'New Shoes',
       amount: 69.99,
-      date: DateTime.now(),
+      date: DateTime.utc(2021, 02, 08),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'New Shoes',
+      amount: 10.55,
+      date: DateTime.utc(2021, 02, 09),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'New Shoes',
+      amount: 78.95,
+      date: DateTime.utc(2021, 02, 10),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'New Shoes',
+      amount: 80.99,
+      date: DateTime.utc(2021, 02, 11),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'New Shoes',
+      amount: 60.78,
+      date: DateTime.utc(2021, 02, 12),
+    ),
+    Transaction(
+      id: 't7',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.utc(2021, 02, 13),
+    ),
+    Transaction(
+      id: 't8',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.utc(2021, 02, 14),
     ),
   ];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((transaction) {
@@ -106,22 +145,64 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final appBar = AppBar(title: Text('Personal Expenses'), actions: <Widget>[
+      IconButton(
+        icon: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
+      ),
+    ]);
+    final transactionsListWidget = Container(
+      height: (mediaQuery.size.height -
+              appBar.preferredSize.height -
+              mediaQuery.padding.top) *
+          0.7,
+      child: TransactionList(
+        userTransactions: _userTransactions,
+        deleteTransaction: _deleteTransaction,
+      ),
+    );
+
     return Scaffold(
-      appBar: AppBar(title: Text('Personal Expenses'), actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context),
-        )
-      ]),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(
-              userTransactions: _userTransactions,
-              deleteTransaction: _deleteTransaction,
-            ),
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (value) {
+                        setState(() {
+                          _showChart = value;
+                        });
+                      }),
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscape) transactionsListWidget,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (mediaQuery.size.height -
+                              appBar.preferredSize.height -
+                              mediaQuery.padding.top) *
+                          0.7,
+                      child: Chart(_recentTransactions),
+                    )
+                  : transactionsListWidget,
           ],
         ),
       ),

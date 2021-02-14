@@ -14,10 +14,9 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 450,
-      child: userTransactions.isEmpty
-          ? Column(children: <Widget>[
+    return userTransactions.isEmpty
+        ? LayoutBuilder(builder: (context, constraints) {
+            return Column(children: <Widget>[
               Text(
                 'No transactions added yet!',
                 style: Theme.of(context).textTheme.title,
@@ -26,22 +25,23 @@ class TransactionList extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                height: 200,
+                height: constraints.maxHeight * 0.6,
                 child: Image.asset(
                   'assets/images/waiting.png',
                   fit: BoxFit.cover,
                 ),
               ),
-            ])
-          : ListView.builder(
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 5,
-                  ),
-                  child: ListTile(
+            ]);
+          })
+        : ListView.builder(
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 5,
+                ),
+                child: ListTile(
                     leading: CircleAvatar(
                       radius: 30,
                       child: Padding(
@@ -60,17 +60,23 @@ class TransactionList extends StatelessWidget {
                         userTransactions[index].date,
                       ),
                     ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () =>
-                          deleteTransaction(userTransactions[index].id),
-                    ),
-                  ),
-                );
-              },
-              itemCount: userTransactions.length,
-            ),
-    );
+                    trailing: MediaQuery.of(context).size.width > 350
+                        ? FlatButton.icon(
+                            icon: Icon(Icons.delete),
+                            label: Text('Delete'),
+                            textColor: Theme.of(context).errorColor,
+                            onPressed: () =>
+                                deleteTransaction(userTransactions[index].id),
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Theme.of(context).errorColor,
+                            onPressed: () =>
+                                deleteTransaction(userTransactions[index].id),
+                          )),
+              );
+            },
+            itemCount: userTransactions.length,
+          );
   }
 }
