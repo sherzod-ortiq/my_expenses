@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
 
 import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
@@ -10,11 +9,6 @@ import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitUp,
-  // ]);
   runApp(MyApp());
 }
 
@@ -55,50 +49,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't2',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.utc(2021, 02, 08),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'New Shoes',
-      amount: 10.55,
-      date: DateTime.utc(2021, 02, 09),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'New Shoes',
-      amount: 78.95,
-      date: DateTime.utc(2021, 02, 10),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'New Shoes',
-      amount: 80.99,
-      date: DateTime.utc(2021, 02, 11),
-    ),
-    Transaction(
-      id: 't6',
-      title: 'New Shoes',
-      amount: 60.78,
-      date: DateTime.utc(2021, 02, 12),
-    ),
-    Transaction(
-      id: 't7',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.utc(2021, 02, 13),
-    ),
-    Transaction(
-      id: 't8',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.utc(2021, 02, 14),
-    ),
-  ];
+  final List<Transaction> _userTransactions = [];
   bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
