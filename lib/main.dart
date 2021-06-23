@@ -18,10 +18,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
+        primarySwatch: Colors.green,
+        primaryColor: Colors.green[800],
+        accentColor: Colors.green,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
+            // ignore: deprecated_member_use
             title: TextStyle(
               fontFamily: 'OpenSans',
               fontWeight: FontWeight.bold,
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
             button: TextStyle(color: Colors.white)),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
+                // ignore: deprecated_member_use
                 title: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 20,
@@ -144,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     'Show Chart',
+                    // ignore: deprecated_member_use
                     style: Theme.of(context).textTheme.title,
                   ),
                   Switch.adaptive(

@@ -21,6 +21,7 @@ class AdaptiveFlatButton extends StatelessWidget {
             ),
             onPressed: presentDatePicker,
           )
+        // ignore: deprecated_member_use
         : FlatButton(
             textColor: Theme.of(context).primaryColor,
             child: Text(

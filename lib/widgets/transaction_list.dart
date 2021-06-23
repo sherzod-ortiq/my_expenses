@@ -19,6 +19,7 @@ class TransactionList extends StatelessWidget {
             return Column(children: <Widget>[
               Text(
                 'No transactions added yet!',
+                // ignore: deprecated_member_use
                 style: Theme.of(context).textTheme.title,
               ),
               SizedBox(
@@ -53,6 +54,7 @@ class TransactionList extends StatelessWidget {
                     ),
                     title: Text(
                       userTransactions[index].title,
+                      // ignore: deprecated_member_use
                       style: Theme.of(context).textTheme.title,
                     ),
                     subtitle: Text(
@@ -61,6 +63,7 @@ class TransactionList extends StatelessWidget {
                       ),
                     ),
                     trailing: MediaQuery.of(context).size.width > 350
+                        // ignore: deprecated_member_use
                         ? FlatButton.icon(
                             icon: Icon(Icons.delete),
                             label: Text('Delete'),
