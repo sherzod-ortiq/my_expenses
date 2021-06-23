@@ -94,6 +94,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   ],
                 ),
               ),
+              // ignore: deprecated_member_use
               RaisedButton(
                 onPressed: _submitData,
                 child: Text('Add Transaction'),
